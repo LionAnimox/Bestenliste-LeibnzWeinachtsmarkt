@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestenliste - Dosenwerfen</title>
+    <style>
+        /* Grundlegendes Design */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.2em;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            max-width: 95%;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 5px solid #ff9966;
+        }
+
+        /* Eingabefelder und Buttons */
+        .form-control input {
+            width: calc(100% - 20px);
+            max-width: 300px;
+            padding: 10px;
+            margin: 10px auto;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border 0.3s ease;
+            background: #fff;
+        }
+        .form-control input:focus {
+            border: 1px solid #ff5e62;
+            outline: none;
+        }
+        .form-control button {
+            padding: 12px;
+            max-width: 300px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(90deg, #ff9966, #ff5e62);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-control button:hover {
+            background: linear-gradient(90deg, #ff5e62, #ff9966);
+        }
+
+        /* Tabellen-Stil */
+        .bestenliste table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        .bestenliste th, .bestenliste td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .bestenliste th {
+            background: #ff9966;
+            color: white;
+        }
+        .bestenliste td {
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        /* Animationen */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Admin-Buttons */
+        .admin-control button {
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            color: white;
+            background: #d9534f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .admin-control button:hover {
+            background: #c9302c;
+        }
+
+        /* Mobilgeräte */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bestenliste - Dosenwerfen</h1>
+    <div class="container">
+        <!-- Passwort Eingabe -->
+        <div class="form-control" style="background: rgba(0, 0, 0, 0.1); border-radius: 10px; padding: 20px;">
+            <input type="password" id="adminPasswort" placeholder="Admin-Passwort eingeben" />
+            <button onclick="pruefePasswort()">Einloggen</button>
+        </div>
+
+        <!-- Eingabefelder (nur für Admins sichtbar) -->
+        <div class="form-control" id="eingabeBereich" style="display: none;">
+            <input type="text" id="spielerName" placeholder="Name eingeben" />
+            <input type="number" id="spielerPunkte" placeholder="Punkte eingeben" />
+            <button onclick="spielerHinzufuegen()">Hinzufügen</button>
+        </div>
+
+        <!-- Bestenliste -->
+        <div class="bestenliste" id="bestenliste">
+            <table>
+                <thead>
+                    <tr id="tableHeader">
+                        <th>Platz</th>
+                        <th>Name</th>
+                        <th>Punkte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamisch generiert -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Admin-Steuerung -->
+        <div class="admin-control" id="adminSteuerung" style="display: none;">
+            <button onclick="tabelleZuruecksetzen()">Tabelle zurücksetzen</button>
+        </div>
+    </div>
+
+    <script>
+        let spielerListe = [
+            { name: "Alex", punkte: 120 },
+            { name: "Lisa", punkte: 95 },
+            { name: "Tom", punkte: 75 }
+        ];
+
+        let istEingeloggt = false;
+        const ADMIN_PASSWORT = "7D";
+
+        function aktualisiereBestenliste() {
+            const tbody = document.querySelector("#bestenliste tbody");
+            tbody.innerHTML = "";
+            spielerListe.sort((a, b) => b.punkte - a.punkte);
+
+            spielerListe.forEach((spieler, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${spieler.name}</td>
+                    <td>${spieler.punkte}</td>
+                `;
+                if (istEingeloggt) {
+                    row.innerHTML += `<td><button onclick="spielerLoeschen(${index})">Löschen</button></td>`;
+                }
+                tbody.appendChild(row);
+            });
+        }
+
+        function spielerHinzufuegen() {
+            const name = document.getElementById("spielerName").value.trim();
+            const punkte = parseInt(document.getElementById("spielerPunkte").value);
+
+            if (name && !isNaN(punkte)) {
+                spielerListe.push({ name, punkte });
+                aktualisiereBestenliste();
+                document.getElementById("spielerName").value = "";
+                document.getElementById("spielerPunkte").value = "";
+            } else {
+                alert("Bitte einen gültigen Namen und Punktzahl eingeben.");
+            }
+        }
+
+        function spielerLoeschen(index) {
+            spielerListe.splice(index, 1);
+            aktualisiereBestenliste();
+        }
+
+        function tabelleZuruecksetzen() {
+            if (confirm("Möchten Sie die gesamte Tabelle zurücksetzen?")) {
+                spielerListe = [];
+                aktualisiereBestenliste();
+            }
+        }
+
+        function pruefePasswort() {
+            const passwort = document.getElementById("adminPasswort").value.trim();
+            if (passwort === ADMIN_PASSWORT) {
+                istEingeloggt = true;
+                document.getElementById("eingabeBereich").style.display = "block";
+                document.getElementById("adminSteuerung").style.display = "block";
+                document.getElementById("tableHeader").innerHTML = `
+                    <th>Platz</th>
+                    <th>Name</th>
+                    <th>Punkte</th>
+                    <th>Aktion</th>
+                `;
+                aktualisiereBestenliste();
+                alert("Erfolgreich eingeloggt!");
+            } else {
+                alert("Falsches Passwort!");
+            }
+        }
+
+        aktualisiereBestenliste();
+    </script>
+</body>
+</html>
