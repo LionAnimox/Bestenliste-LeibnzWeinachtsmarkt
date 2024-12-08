@@ -1,0 +1,117 @@
+/* Allgemeines Styling */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #004d00, #660000); /* Dunkelgrün zu Dunkelrot */
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border: 5px solid #990000; /* Dunkelrot */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Header */
+.header h1 {
+  font-size: 2rem;
+  color: #004d00; /* Dunkelgrün */
+}
+
+.header p {
+  font-size: 1rem;
+  color: #990000; /* Dunkelrot */
+}
+
+/* Formulare */
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #004d00; /* Dunkelgrün */
+  border-radius: 5px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  background: linear-gradient(to right, #004d00, #990000); /* Grün zu Rot */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(to right, #990000, #004d00); /* Rot zu Grün */
+}
+
+/* Tabelle */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: #f9f9f9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background: linear-gradient(to right, #004d00, #990000); /* Grün zu Rot */
+  color: white;
+}
+
+thead th {
+  padding: 10px;
+}
+
+tbody td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background: #ffeeee; /* Helles Rot */
+}
+
+tbody tr:nth-child(odd) {
+  background: #eaffea; /* Helles Grün */
+}
+
+/* Versteckte Elemente */
+.hidden {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}

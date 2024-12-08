@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestenliste</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Bestenliste</h1>
+    
+    <table id="leaderboard">
+      <thead>
+        <tr>
+          <th>Platz</th>
+          <th>Name</th>
+          <th>Punkte</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Die Liste der Spieler wird hier eingefügt -->
+      </tbody>
+    </table>
+
+    <form id="addPlayerForm">
+      <input type="text" id="playerName" placeholder="Name" required>
+      <input type="number" id="playerScore" placeholder="Punkte" required>
+      <button type="submit">Hinzufügen</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
