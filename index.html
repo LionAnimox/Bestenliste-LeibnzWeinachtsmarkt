@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestenliste</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Weihnachtliche Bestenliste</h1>
+    
+    <!-- Passwortfeld für Admin -->
+    <div id="password-container">
+      <input type="password" id="password" placeholder="Passwort eingeben" />
+      <button id="submit-password">Einloggen</button>
+    </div>
+    
+    <!-- Tabelle für die Bestenliste -->
+    <table id="leaderboardTable"></table>
+
+    <!-- Bereich zum Hinzufügen neuer Personen (nur nach Admin-Login sichtbar) -->
+    <div id="add-person-container" style="display:none;">
+      <input type="text" id="name" placeholder="Name der Person" />
+      <input type="number" id="score" placeholder="Punkte" />
+      <button id="add-person">Person hinzufügen</button>
+    </div>
+
+    <!-- Button zum Löschen einer einzelnen Person (wird nur nach Passwort-Anmeldung angezeigt) -->
+    <div id="delete-person-container" style="display:none;">
+      <input type="number" id="delete-id" placeholder="ID der zu löschenden Person" />
+      <button id="delete-person">Person löschen</button>
+    </div>
+
+    <!-- Button zum Zurücksetzen der Tabelle (wird nur nach Passwort-Anmeldung angezeigt) -->
+    <button id="reset-table" style="display:none;">Tabelle zurücksetzen</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
