@@ -1,0 +1,86 @@
+/* Grundlayout */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #d12c2c, #8b0000);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #d12c2c;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+h2, h3 {
+    margin: 20px 0;
+    color: #cc0000;
+}
+
+/* Tabelle */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #cc0000;
+    color: #fff;
+}
+
+td {
+    text-align: center;
+}
+
+/* Buttons und Eingabefelder */
+button, input {
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #cc0000;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover, input:hover {
+    background-color: #a30000;
+}
+
+/* Animationen */
+button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Admin-Funktionen */
+.admin-functions {
+    margin-top: 20px;
+}
+
