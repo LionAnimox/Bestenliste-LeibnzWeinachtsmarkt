@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weihnachtliche Bestenliste</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎄 Weihnachts-Bestenliste 🎄</h1>
+    </header>
+    <main>
+        <!-- Passwort Eingabe -->
+        <section id="admin-login">
+            <input type="password" id="admin-password" placeholder="Admin-Passwort eingeben">
+            <button onclick="checkPassword()">Einloggen</button>
+        </section>
+
+        <!-- Eingabefelder für Admins -->
+        <section id="admin-controls" style="display: none;">
+            <input type="text" id="player-name" placeholder="Name eingeben">
+            <input type="number" id="player-score" placeholder="Punktzahl eingeben">
+            <button onclick="addPlayer()">Hinzufügen</button>
+            <button onclick="resetTable()">Tabelle zurücksetzen</button>
+        </section>
+
+        <!-- Bestenliste -->
+        <section id="leaderboard">
+            <h2>🏆 Bestenliste 🏆</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Platz</th>
+                        <th>Name</th>
+                        <th>Punkte</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Dynamischer Inhalt -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>Frohe Weihnachten! 🎅</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
