@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weihnachtliches Dosenwerfen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            background: url('https://www.example.com/weihnachts-hintergrund.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FFD700; /* Gold */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .admin-login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        input[type="password"] {
+            padding: 12px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            width: 250px;
+            border-radius: 20px;
+            border: 2px solid #fff;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #B22222; /* Dark Red */
+            border-radius: 20px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #8B0000; /* Darker Red */
+        }
+        .admin-buttons {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .admin-buttons button {
+            background-color: #228B22; /* Dark Green */
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .admin-buttons button:hover {
+            background-color: #006400; /* Darker Green */
+        }
+        table {
+            margin-top: 30px;
+            width: 90%;
+            border-collapse: collapse;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #fff;
+            font-size: 18px;
+        }
+        th {
+            background-color: #333;
+            font-size: 20px;
+        }
+        td {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            text-align: center;
+        }
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 30px;
+        }
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 30px;
+            opacity: 0.8;
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            input[type="password"], button {
+                width: 200px;
+            }
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Snowflakes Animation -->
+<div class="snowflakes" aria-hidden="true">
+    <div class="snowflake" style="left: 10%; animation-duration: 10s;">❄️</div>
+    <div class="snowflake" style="left: 20%; animation-duration: 12s;">❄️</div>
+    <div class="snowflake" style="left: 30%; animation-duration: 15s;">❄️</div>
+    <div class="snowflake" style="left: 50%; animation-duration: 14s;">❄️</div>
+    <div class="snowflake" style="left: 60%; animation-duration: 13s;">❄️</div>
+    <div class="snowflake" style="left: 80%; animation-duration: 16s;">❄️</div>
+</div>
+
+<header>
+    <h1>Weihnachtliches Dosenwerfen</h1>
+</header>
+
+<div class="admin-login">
+    <label for="admin-password">Admin Passwort: </label>
+    <input type="password" id="admin-password" placeholder="Passwort eingeben">
+    <button onclick="checkPassword()">Login</button>
+</div>
+
+<div class="admin-buttons">
+    <button onclick="deleteColumn()">Spalte Löschen</button>
+    <button onclick="addPerson()">Neue Person Hinzufügen</button>
+    <button onclick="resetTable()">Tabelle Zurücksetzen</button>
+</div>
+
+<div id="table-container"></div>
+
+<footer>
+    <p>Frohe Weihnachten! &copy; 2024</p>
+</footer>
+
+<script>
+    const apiKey = 'patE0Ny5g5vcRyw25.89da40351909f1983873619b8871fbc09996a460178a71ce7be90fe42fa4922a';
+    const baseId = 'appoBFFvxZZhXuJqx';
+    const tableId = 'tblJDKfaNV0gvPbKr';
+    const viewId = 'viwzbsIqsttxurgPY';
+    const url = `https://api.airtable.com/v0/${baseId}/${tableId}?view=${viewId}`;
+    
+    const adminPassword = "7D"; // Geändertes Passwort
+
+    async function fetchData() {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        const records = data.records;
+
+        let tableHTML = '<table><tr><th>ID</th><th>Name</th><th>Punkte</th></tr>';
+        records.forEach(record => {
+            tableHTML += `<tr>
+                            <td>${record.fields.ID}</td>
+                            <td>${record.fields.Name}</td>
+                            <td>${record.fields.Punkte}</td>
+                          </tr>`;
+        });
+        tableHTML += '</table>';
+        document.getElementById("table-container").innerHTML = tableHTML;
+    }
+
+    function checkPassword() {
+        const password = document.getElementById("admin-password").value;
+        if (password === adminPassword) {
+            document.querySelector(".admin-buttons").style.display = 'block';
+            fetchData(); 
+        } else {
+            alert("Falsches Passwort!");
+        }
+    }
+
+    async function deleteColumn() {
+        const recordId = prompt("Gib die ID der Zeile ein, die du löschen möchtest:");
+        const deleteUrl = `https://api.airtable.com/v0/${baseId}/${tableId}/${recordId}`;
+        
+        await fetch(deleteUrl, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        fetchData(); 
+    }
+
+    async function addPerson() {
+        const name = prompt("Name der Person:");
+        const punkte = prompt("Punkte der Person:");
+        
+        const data = {
+            fields: {
+                Name: name,
+                Punkte: punkte
+            }
+        };
+
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        fetchData(); 
+    }
+
+    async function resetTable() {
+        const records = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json());
+
+        for (let record of records.records) {
+            await fetch(`https://api.airtable.com/v0/${baseId}/${tableId}/${record.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        fetchData(); 
+    }
+
+    fetchData();
+</script>
+
+</body>
+</html>
+
+
