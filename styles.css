@@ -1,0 +1,95 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #b30000, #004d00);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+h1 {
+    margin: 20px 0;
+    font-size: 2.5rem;
+    color: gold;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.container {
+    margin: 20px;
+    width: 90%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background: darkred;
+    color: gold;
+}
+
+thead th {
+    padding: 10px;
+    font-size: 1rem;
+}
+
+tbody tr {
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+input, button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid gold;
+}
+
+input::placeholder {
+    color: white;
+    opacity: 0.8;
+}
+
+button {
+    background: darkred;
+    color: gold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4500;
+}
+
